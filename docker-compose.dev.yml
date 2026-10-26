@@ -1,0 +1,4 @@
+services:
+  connector:
+    build: .
+    image: hadge-sparkyfitness-connector:dev

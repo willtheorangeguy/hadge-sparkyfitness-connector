@@ -1,0 +1,22 @@
+services:
+  connector:
+    image: ghcr.io/willtheorangeguy/hadge-sparkyfitness-connector:${CONNECTOR_VERSION:-0.1.0}
+    restart: unless-stopped
+    init: true
+    environment:
+      GITHUB_REPOSITORY: ${GITHUB_REPOSITORY:?Set GITHUB_REPOSITORY in .env}
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_TOKEN_FILE: ${GITHUB_TOKEN_FILE:-}
+      GITHUB_BRANCH: ${GITHUB_BRANCH:-}
+      SPARKYFITNESS_URL: ${SPARKYFITNESS_URL:?Set SPARKYFITNESS_URL in .env}
+      SPARKYFITNESS_TIMEZONE: ${SPARKYFITNESS_TIMEZONE:-UTC}
+      SPARKYFITNESS_API_KEY: ${SPARKYFITNESS_API_KEY:-}
+      SPARKYFITNESS_API_KEY_FILE: ${SPARKYFITNESS_API_KEY_FILE:-}
+      SYNC_INTERVAL_SECONDS: ${SYNC_INTERVAL_SECONDS:-300}
+      EXPORT_SINCE: ${EXPORT_SINCE:-}
+      STATE_DIR: /state
+    volumes:
+      - connector-state:/state
+
+volumes:
+  connector-state:
