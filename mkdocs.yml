@@ -1,0 +1,41 @@
+INHERIT: .mkdocs-shared/shared/mkdocs.base.yml
+
+site_name: Hadge → Sparky Fitness connector
+site_description: Sync Apple Health workout summaries from Hadge's GitHub exports into Sparky Fitness.
+site_author: willtheorangeguy
+site_url: https://williamvdg.me/hadge-sparkyfitness-connector/
+repo_url: https://github.com/willtheorangeguy/hadge-sparkyfitness-connector
+repo_name: willtheorangeguy/hadge-sparkyfitness-connector
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2026 William Vandergraaf
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Installation: installation.md
+  - Configuration: configuration.md
+  - Usage: usage.md
+  - CLI and API reference: api.md
+  - Workout data: data.md
+  - Architecture: architecture.md
+  - Operations:
+      - Deployment: deployment.md
+      - Recovery: recovery.md
+      - Troubleshooting: troubleshooting.md
+      - FAQ: faq.md
+      - Limitations: roadmap.md
+  - Development:
+      - Development: development.md
+      - Testing: testing.md
+      - CI/CD: ci-cd.md
+      - Releases: releases.md
+  - About:
+      - Changelog: changelog.md
+      - License: license.md
+      - Contributing: https://github.com/willtheorangeguy/.github/blob/main/CONTRIBUTING.md
+      - Code of conduct: https://github.com/willtheorangeguy/.github/blob/main/CODE_OF_CONDUCT.md
+      - Security: https://github.com/willtheorangeguy/.github/blob/main/SECURITY.md
+
+exclude_docs: |
+  docs.instructions.md
+  internal/
