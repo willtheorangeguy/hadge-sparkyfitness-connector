@@ -106,5 +106,5 @@ jobs:
         run: |
           python scripts/release_assets.py
           gh release upload "$RELEASE_TAG" --clobber \
-            release-assets/docker-compose.yml release-assets/.env release-assets/env.example \
+            release-assets/docker-compose.yml release-assets/default.env release-assets/env.example \
             "release-assets/hadge-sparkyfitness-connector-$VERSION.zip" release-assets/SHA256SUMS

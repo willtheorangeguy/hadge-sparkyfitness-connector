@@ -18,7 +18,9 @@ def setup_assets(version, image, root=Path(".")):
     if count != 1:
         raise ValueError("Expected CONNECTOR_VERSION in .env.example")
     # Only the committed placeholder template is ever used; never read a developer's .env.
-    return {"docker-compose.yml": compose, ".env": env, "env.example": env}
+    # GitHub normalizes a standalone `.env` attachment to `default.env`.
+    # Keep asset/checksum names stable and put the actual `.env` filename inside the ZIP.
+    return {"docker-compose.yml": compose, "default.env": env, "env.example": env}
 
 
 def main():
@@ -30,8 +32,8 @@ def main():
         (target / name).write_text(content, encoding="utf-8", newline="\n")
     archive = target / f"hadge-sparkyfitness-connector-{version}.zip"
     with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
-        for name in ("docker-compose.yml", ".env"):
-            bundle.write(target / name, arcname=name)
+        bundle.write(target / "docker-compose.yml", arcname="docker-compose.yml")
+        bundle.write(target / "default.env", arcname=".env")
     names = [*assets, archive.name]
     checksums = "".join(
         f"{hashlib.sha256((target / name).read_bytes()).hexdigest()}  {name}\n" for name in names

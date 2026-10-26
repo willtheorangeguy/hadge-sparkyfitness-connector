@@ -14,9 +14,9 @@ def test_release_assets_are_ready_to_run_without_source():
     assets = setup_assets("0.1.0", IMAGE, ROOT)
     assert f"{IMAGE}:${{CONNECTOR_VERSION:-0.1.0}}" in assets["docker-compose.yml"]
     assert "build:" not in assets["docker-compose.yml"]
-    assert "CONNECTOR_VERSION=0.1.0" in assets[".env"]
-    assert "replace-with-your-read-only-token" in assets[".env"]
-    assert "replace-with-your-sparky-api-key" in assets[".env"]
+    assert "CONNECTOR_VERSION=0.1.0" in assets["default.env"]
+    assert "replace-with-your-read-only-token" in assets["default.env"]
+    assert "replace-with-your-sparky-api-key" in assets["default.env"]
 
 
 def test_generation_never_reads_developer_secrets(tmp_path, monkeypatch):
@@ -31,7 +31,9 @@ def test_generation_never_reads_developer_secrets(tmp_path, monkeypatch):
     with zipfile.ZipFile(directory / "hadge-sparkyfitness-connector-0.1.0.zip") as bundle:
         assert set(bundle.namelist()) == {"docker-compose.yml", ".env"}
         assert b"private-test-value" not in bundle.read(".env")
-    assert len((directory / "SHA256SUMS").read_text().splitlines()) == 4
+    checksums = (directory / "SHA256SUMS").read_text().splitlines()
+    assert len(checksums) == 4
+    assert any(line.endswith("  default.env") for line in checksums)
 
 
 def test_tag_must_match_package_version():

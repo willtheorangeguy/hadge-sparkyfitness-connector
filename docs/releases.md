@@ -8,7 +8,7 @@ The workflow validates that version, runs the reusable Windows/Linux unit and re
 After the image is published, the workflow generates and attaches:
 
 - `docker-compose.yml`, using the matching published image without a local build.
-- `.env`, containing editable placeholders copied only from committed `.env.example`.
+- `default.env`, containing editable placeholders copied only from committed `.env.example`; save it as `.env` when downloading individual files. GitHub normalizes standalone `.env` attachments to this name.
 - `env.example`, the same template with a browser-friendly filename.
 - `hadge-sparkyfitness-connector-<version>.zip`, containing `docker-compose.yml` and `.env`.
 - `SHA256SUMS`, covering the individual setup files and ZIP.
